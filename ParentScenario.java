@@ -1,15 +1,24 @@
 package com.demo.nicolas.mori.example_calculator_project;
 
 import java.net.URL;
-import java.util.ArrayList;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import com.demo.nicolas.mori.page.object.androidnative.HomePage;
+import com.demo.nicolas.mori.page.object.fb.FbHomePage;
+import com.demo.nicolas.mori.page.object.fb.FbLoginPage;
+import com.demo.nicolas.mori.page.object.fb.FbResultPage;
+import com.demo.nicolas.mori.page.object.fb.FbResultsGroups;
+import com.demo.nicolas.mori.page.object.kayak.KayakHomePage;
+import com.demo.nicolas.mori.page.object.kayak.KayakResultPage;
+import com.demo.nicolas.mori.page.object.lnkd.LnkdHomePage;
+import com.demo.nicolas.mori.page.object.lnkd.LnkdLoginPage;
+import com.demo.nicolas.mori.page.object.lnkd.LnkdResultPage;
 import com.demo.nicolas.mori.page.object.mobile.LoginPage;
 import com.demo.nicolas.mori.page.object.mobile.ToolBar;
+import com.demo.nicolas.mori.page.object.web.GenericPage;
 import com.demo.nicolas.mori.page.object.web.MessagePage;
 import com.demo.nicolas.mori.page.object.web.WG_DashboardPage;
 import com.demo.nicolas.mori.page.object.web.WG_ResultsDetailPage;
@@ -41,6 +50,20 @@ public class ParentScenario extends StepsHelper {
 	protected static MessagePage messagePage;
 
 	protected static HomePage homePageNativeWG;
+
+	protected static FbLoginPage fbLoginPage;
+	protected static FbResultPage fbResultPage;
+	protected static FbHomePage fbHomePage;
+	protected static FbResultsGroups fbResultsGroups;
+
+	protected static LnkdLoginPage lnkdLoginPage;
+	protected static LnkdHomePage lnkdHomePage;
+	protected static LnkdResultPage lnkdResultPage;
+
+	protected static KayakHomePage kayakHomePage;
+	protected static KayakResultPage kayakResultPage;
+
+	protected static GenericPage genericPage;
 
 	/**
 	 * this method create the object driver for Android.
@@ -79,14 +102,27 @@ public class ParentScenario extends StepsHelper {
 
 	}
 
-	public void startBrowser() {
+	public void startBrowser(boolean isMobileEmulator) {
 		System.out.println("Starting driver for Browser Chrome");
-		driver = SelectorBrowser.createDriverWithoutCapabilities("chrome", driver);
+		driver = SelectorBrowser.createDriverWithoutCapabilities(isMobileEmulator, driver);
+
+		genericPage = new GenericPage(driver);
 
 		wg_ResultsPage = new WG_ResultsPage(driver);
 		wg_ResultsDetailPage = new WG_ResultsDetailPage(driver);
 		wg_DashboardPage = new WG_DashboardPage(driver);
 		messagePage = new MessagePage(driver);
+		fbLoginPage = new FbLoginPage(driver);
+		fbResultPage = new FbResultPage(driver);
+		fbHomePage = new FbHomePage(driver);
+		fbResultsGroups = new FbResultsGroups(driver);
+
+		lnkdLoginPage = new LnkdLoginPage(driver);
+		lnkdHomePage = new LnkdHomePage(driver);
+		lnkdResultPage = new LnkdResultPage(driver);
+
+		kayakHomePage = new KayakHomePage(driver);
+		kayakResultPage = new KayakResultPage(driver);
 
 	}
 
@@ -94,39 +130,16 @@ public class ParentScenario extends StepsHelper {
 		System.out.println("Starting driver for Browser Chrome Special");
 
 		if (mobile) {
-			driver = SelectorBrowser.createDriverWithoutCapabilities("chromeEmulationMobile", driver);
+			driver = SelectorBrowser.createDriverWithoutCapabilities(mobile, driver);
 		} else {
-			driver = SelectorBrowser.createDriverWithoutCapabilities("Chrome", driver);
+			driver = SelectorBrowser.createDriverWithoutCapabilities(mobile, driver);
 		}
 
 	}
 
 	protected void navigateTo(String url) {
-
-		System.out.println("gggggggggggggggg");
-
-		ArrayList<String> tabs2 = new ArrayList<String>(driver.getWindowHandles());
-		driver.switchTo().window(tabs2.get(1));
-		driver.close();
-		driver.switchTo().window(tabs2.get(0));
-
-		System.out.println("hhhhhhhhhhhhhh");
-
-		// try {
-		// Thread.sleep(5000);
-		// } catch (Exception e) {
-		// // TODO: handle exception
-		// }
-
+		System.out.println("Starting to go to the url: " + url);
 		driver.navigate().to(url);
-
-		// try {
-		// Thread.sleep(5000);
-		// } catch (Exception e) {
-		// // TODO: handle exception
-		// }
-
-		System.out.println("bbbbbbbbbbbbbbb");
 	}
 
 	public void closeDriver() {
