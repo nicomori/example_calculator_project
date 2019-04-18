@@ -275,6 +275,17 @@ public abstract class DSL {
 
 	// ############### STANDART SECTIONS ######################
 
+//	/**
+//	 * This method make click!
+//	 * 
+//	 * @param locator
+//	 */
+//	protected void verifyIfAElement(By locator) {
+//		System.out.println("Making click in a web element");
+//		driver.findElement(locator).click();
+//	}
+	
+	
 	/**
 	 * This method make click!
 	 * 
@@ -311,9 +322,19 @@ public abstract class DSL {
 	 * @return String with the string content in the attribute.
 	 */
 	protected String getAttributeFromLocator(By locator, String attribute) {
-		System.out.println("Starting to find this attrivute: " + attribute);
-		return driver.findElement(locator).getAttribute(attribute);
+		System.out.println("Starting to find this attribute: " + attribute);
+		try {
+			String contentOfAttribute = driver.findElement(locator).getAttribute(attribute);
+			return contentOfAttribute;
+		} catch (Exception e) {
+			System.out.println("The WebElement dont have this attribute: "+attribute+", we return null");
+			return null;
+		}
 	}
+	
+	
+	
+	
 
 	/**
 	 * This method make click!
@@ -753,6 +774,18 @@ public abstract class DSL {
 		jse.executeScript("window.scrollBy(0,20000)", "");
 		waitSleepingTheTread(1500);
 	}
+	
+	/**
+	 * This method make scroll up.
+	 * 
+	 * @param locator
+	 */
+	protected void scrollUp() {
+		System.out.println("make scroll down.");
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollBy(5000,0)", "");
+		waitSleepingTheTread(1500);
+	}
 
 	/**
 	 * this method make scroll down until find a text displayed.
@@ -875,6 +908,14 @@ public abstract class DSL {
 		for (int i = 0; i < driver.findElements(locator).size(); i++) {
 			listOfStrings.add(driver.findElements(locator).get(i).getText());
 		}
+		
+		
+		System.out.println("ddddddddddddddddd");
+		for(String pepe:listOfStrings) {
+			System.out.println(pepe);
+		}
+		System.out.println("ddddddddddddddddd");
+		
 		return listOfStrings;
 	}
 
