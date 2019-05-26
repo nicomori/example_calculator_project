@@ -128,16 +128,15 @@ public class ParentScenario extends StepsHelper {
 			System.out.println("Exeption at the moment to generate the driver = " + e);
 		}
 
-		homePageNativeWG = new HomePage(driver);
-		toolBar = new ToolBar(driver);
-		loginPage = new LoginPage(driver);
-		homePage = new HomePage(driver);
+    //homePageNativeWG = new HomePage(driver);
+		//toolBar = new ToolBar(driver);
+		//loginPage = new LoginPage(driver);
+		//homePage = new HomePage(driver);
 		
 
-		homePageKra = new HomePageKra(driver);
-		loginKra = new LoginKra(driver);
-		dashboardKra = new DashboardKra(driver);
-		
+		//homePageKra = new HomePageKra(driver);
+		//loginKra = new LoginKra(driver);
+		//dashboardKra = new DashboardKra(driver);
 	}
 
 	public void startBrowser(boolean isMobileEmulator) {

@@ -22,6 +22,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -71,6 +72,20 @@ public abstract class DSL {
 					.isDisplayed();
 			return true;
 		}
+	}
+	
+	/**
+	 * this method make a mouse over from a web element to other locator, and make
+	 * click in the second element.
+	 *
+	 * @param first web element locator
+	 * @param second web element locator
+	 */
+	protected void mouseOverAndClick(By firstLocator, By secondLocator) {
+		waitForAnExplicitElement(firstLocator);
+		Actions action = new Actions(driver);
+		WebElement we = driver.findElement(firstLocator);
+		action.moveToElement(we).moveToElement(driver.findElement(secondLocator)).click().build().perform();
 	}
 
 	/**
