@@ -11,6 +11,9 @@ import com.demo.nicolas.mori.page.object.fb.FbHomePage;
 import com.demo.nicolas.mori.page.object.fb.FbLoginPage;
 import com.demo.nicolas.mori.page.object.fb.FbResultPage;
 import com.demo.nicolas.mori.page.object.fb.FbResultsGroups;
+import com.demo.nicolas.mori.page.object.interview.DashboardKra;
+import com.demo.nicolas.mori.page.object.interview.HomePageKra;
+import com.demo.nicolas.mori.page.object.interview.LoginKra;
 import com.demo.nicolas.mori.page.object.kayak.KayakHomePage;
 import com.demo.nicolas.mori.page.object.kayak.KayakResultPage;
 import com.demo.nicolas.mori.page.object.lnkd.LnkdHomePage;
@@ -30,9 +33,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 /**
- * This Class is created for make a helper for all the pages, and all the parts of the a native app,
- * or for execute all the drivers. And for create all the objects of pages, or objects created in
- * all the pages.
+ * This Class is created for make a helper for all the pages, and all the parts
+ * of the a native app, or for execute all the drivers. And for create all the
+ * objects of pages, or objects created in all the pages.
  * 
  */
 
@@ -65,18 +68,22 @@ public class ParentScenario extends StepsHelper {
 
 	protected static GenericPage genericPage;
 
+	protected static HomePageKra homePageKra;
+	protected static LoginKra loginKra;
+	protected static DashboardKra dashboardKra;
+
 	/**
 	 * this method create the object driver for Android.
 	 * 
-	 * @param uuid
-	 *            of the device to use.
+	 * @param uuid of the device to use.
 	 */
 	public void startAndroid(String uuid, String appPackage) {
 
 		DesiredCapabilities cap = new DesiredCapabilities();
 		// cap.setCapability(MobileCapabilityType.DEVICE_NAME, uuid);
 		cap.setCapability(MobileCapabilityType.APP_PACKAGE, appPackage);
-		// cap.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.wggesucht.android.WG_Gesucht");
+		// cap.setCapability(MobileCapabilityType.APP_ACTIVITY,
+		// "com.wggesucht.android.WG_Gesucht");
 		// cap.setCapability(MobileCapabilityType.PLATFORM_VERSION, "7");
 		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, "ANDROID");
 		cap.setCapability(MobileCapabilityType.APP,
@@ -100,6 +107,37 @@ public class ParentScenario extends StepsHelper {
 		loginPage = new LoginPage(driver);
 		homePage = new HomePage(driver);
 
+	}
+
+	/**
+	 * this method create the object driver for Android.
+	 * 
+	 * @param uuid of the device to use.
+	 */
+	@SuppressWarnings("rawtypes")
+	public void startAndroidWebTest(String uuid) {
+
+		DesiredCapabilities cap = new DesiredCapabilities();
+		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, "ANDROID");
+		cap.setCapability(MobileCapabilityType.BROWSER_NAME, "Chrome");
+		cap.setCapability("deviceName", "8575525242395141");
+
+		try {
+			driver = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), cap);
+		} catch (Exception e) {
+			System.out.println("Exeption at the moment to generate the driver = " + e);
+		}
+
+		homePageNativeWG = new HomePage(driver);
+		toolBar = new ToolBar(driver);
+		loginPage = new LoginPage(driver);
+		homePage = new HomePage(driver);
+		
+
+		homePageKra = new HomePageKra(driver);
+		loginKra = new LoginKra(driver);
+		dashboardKra = new DashboardKra(driver);
+		
 	}
 
 	public void startBrowser(boolean isMobileEmulator) {
