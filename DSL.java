@@ -10,7 +10,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.ImageIO;
 
@@ -597,7 +599,7 @@ public abstract class DSL {
 	protected void waitLongForAnExplicitElement(By locator) {
 		System.out.println("Starting to wait for a exclusive element");
 		@SuppressWarnings("unused")
-		WebElement myDynamicElement = (new WebDriverWait(driver, 2000))
+		WebElement myDynamicElement = (new WebDriverWait(driver, 20))
 				.until(ExpectedConditions.presenceOfElementLocated(locator));
 	}
 
@@ -808,7 +810,7 @@ public abstract class DSL {
 	 * @param textToFind
 	 *            this is the text to find and make click.
 	 */
-	public void scrollDownUntilFindAText(String textToFind) {
+	protected void scrollDownUntilFindAText(String textToFind) {
 		boolean flag = false;
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -933,6 +935,24 @@ public abstract class DSL {
 		
 		return listOfStrings;
 	}
+	
+	/**
+	 * this method wait for a exclusive elemente deployed
+	 * 
+	 * @param locator
+	 */
+	protected Map<String,String> integrate2ListInAHashMap(String keys,String values) {
+		System.out.println("Starting to get all the elements of a list and return in a map");
+		List<WebElement> listOfWebelementsKeys = driver.findElements(By.xpath(keys));
+		List<WebElement> listOfWebelementsValues = driver.findElements(By.xpath(values));
+		
+		Map<String,String> map = new LinkedHashMap<String,String>();
+		
+		for (int i = 0; i < listOfWebelementsKeys.size(); i++) {
+			map.put(listOfWebelementsKeys.get(i).getText(), listOfWebelementsValues.get(i).getText());			
+		}
+		return map;
+	}
 
 	// ############### MOBILE SECTIONS ######################
 
@@ -953,7 +973,7 @@ public abstract class DSL {
 	 * @param textToFind
 	 *            this is the text to find and make click.
 	 */
-	public void scrollDownUntilFindAStringAndMakeClick(String textToFind) {
+	protected void scrollDownUntilFindAStringAndMakeClick(String textToFind) {
 		boolean flag = false;
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -983,7 +1003,7 @@ public abstract class DSL {
 	 * this method is for make a refresh in the mobile native apps.
 	 * 
 	 */
-	public void refreshSwipingToDown() {
+	protected void refreshSwipingToDown() {
 		Dimension dimensions = driver.manage().window().getSize();
 
 		Double screenHeightStart = dimensions.getHeight() * 0.2;
@@ -1000,7 +1020,7 @@ public abstract class DSL {
 	 * this method is for make a refresh in the mobile native apps.
 	 * 
 	 */
-	public void scrollDownDevice() {
+	protected void scrollDownDevice() {
 		System.out.println("Preparing the scroll down.");
 
 		Dimension dimensions = driver.manage().window().getSize();
@@ -1020,7 +1040,7 @@ public abstract class DSL {
 	/**
 	 * This method make press the button back in the mobile device.
 	 */
-	public void buttonBackMobile() {
+	protected void buttonBackMobile() {
 		System.out.println("make click in the button back in some mobile device.");
 		((AndroidDriver<?>) driver).navigate().back();
 	}
@@ -1048,7 +1068,7 @@ public abstract class DSL {
 	private Method[] methods;
 	Method method;
 
-	public By getLocator(String methodName) {
+	protected By getLocator(String methodName) {
 
 		methods = getClass().getMethods();
 		method = methods[0];

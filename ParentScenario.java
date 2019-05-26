@@ -11,6 +11,9 @@ import com.demo.nicolas.mori.page.object.fb.FbHomePage;
 import com.demo.nicolas.mori.page.object.fb.FbLoginPage;
 import com.demo.nicolas.mori.page.object.fb.FbResultPage;
 import com.demo.nicolas.mori.page.object.fb.FbResultsGroups;
+import com.demo.nicolas.mori.page.object.interview.DashboardKra;
+import com.demo.nicolas.mori.page.object.interview.HomePageKra;
+import com.demo.nicolas.mori.page.object.interview.LoginKra;
 import com.demo.nicolas.mori.page.object.kayak.KayakHomePage;
 import com.demo.nicolas.mori.page.object.kayak.KayakResultPage;
 import com.demo.nicolas.mori.page.object.lnkd.LnkdHomePage;
@@ -64,6 +67,10 @@ public class ParentScenario extends StepsHelper {
 	protected static KayakResultPage kayakResultPage;
 
 	protected static GenericPage genericPage;
+
+	protected static HomePageKra homePageKra;
+	protected static LoginKra loginKra;
+	protected static DashboardKra dashboardKra;
 
 	/**
 	 * this method create the object driver for Android.
@@ -121,6 +128,15 @@ public class ParentScenario extends StepsHelper {
 			System.out.println("Exeption at the moment to generate the driver = " + e);
 		}
 
+    //homePageNativeWG = new HomePage(driver);
+		//toolBar = new ToolBar(driver);
+		//loginPage = new LoginPage(driver);
+		//homePage = new HomePage(driver);
+		
+
+		//homePageKra = new HomePageKra(driver);
+		//loginKra = new LoginKra(driver);
+		//dashboardKra = new DashboardKra(driver);
 	}
 
 	public void startBrowser(boolean isMobileEmulator) {
